@@ -33,10 +33,18 @@ try {
   echo 'DB接続エラー: ' . $e->getMessage();
 }
 
-$count = $db->exec('INSERT INTO my_items SET maker_id=1, item_name="もも", price=210, keyword="缶詰,ピンク,甘い"');
-  echo $count . '件のデータを挿入しました';
-  // execで$dbの中を弄れる パラメーターはSQL
-  // echoで$countの返り値 弄ったデータの数
+// $count = $db->exec('INSERT INTO my_items SET maker_id=1, item_name="もも", price=210, keyword="缶詰,ピンク,甘い"');
+//   echo $count . '件のデータを挿入しました';
+  // execで$dbの中を弄れる 弄ったデータの数を返り値として返す。パラメーターはSQL
+  // echoで$countを表示
+
+$records = $db->query('SELECT * FROM my_items');
+// queryメソッドはSQL(SELECT)で得た値を返り値として返す
+while($record = $records->fetch()) {
+  // fetchメソッドでrecordsの値を1行ずつ取り出すしrecordに代入
+  print($record['item_name'] . "\n");
+  // 連想配列はブラケット[]で取り出す
+}
 ?>
 </pre>
 </main>
